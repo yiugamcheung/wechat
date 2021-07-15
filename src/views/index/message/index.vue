@@ -1,19 +1,35 @@
 <template>
-    <div class="message-wrap">
+    <div class="message-wrap" @click="goChat">
         <div class="message-left">
-            <img src="../images/user01.png" alt="" class="avatar">
+            <img :src="chat.friend.avatar" alt="" class="avatar">
         </div>
         <div class="messgae-right">
-            <div class="nickname">文件传输助手</div>
-            <div class="content">超级辣油日第二弹：33.3元年度免锅底卡</div>
-            <div class="time-info">凌晨12:24</div>
+            <div class="nickname">{{chat.friend.nickname}}</div>
+            <div class="content">{{chat.messageQueue[chat.messageQueue.length-1].content}}</div>
+            <div class="time-info">{{chat.messageQueue[chat.messageQueue.length-1].timeInfo}}</div>
         </div>
     </div>
 </template>
 
 <script>
+
 export default {
-    
+    name: 'message',
+    props: {
+        chat: {
+            type: Object
+        },
+    },
+    methods: {
+        goChat(){
+            this.$router.push({
+                name: 'chat',
+                params: {
+                    thisChat: this.chat,
+                }
+            })
+        }
+    },
 }
 </script>
 

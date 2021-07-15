@@ -1,36 +1,32 @@
 <template>
     <div class="send">
         <div class="send-avatar">
-            <img src="../images/user01.png" alt="">
+            <img :src="my.avatar" alt="">
         </div>
-        <div class="send-nickname">文件传输助手</div>
-        <div class="send-box">
+        <div class="send-nickname">{{my.nickname}}</div>
+        <div class="send-box-wrap">
+            <div class="send-box">
             <div class="send-box-arrow"></div>
-            <div class="send-content">
-                一方面，美国基础设施已严重老化，其破旧不堪不仅威胁民众生
-                命财产安全，也成为制约经济发展的梗阻；另一方面，在美国政
-                治极化加剧、财政赤字高企背景下，政府重振基础设施的努力面
-                临巨大挑战。
-            </div>   
+            <div class="send-content">{{content}}</div>   
+        </div>
         </div>
     </div>
 </template>
 
 <script>
 export default {
-    mounted () {
-        this.$nextTick(() => {
-            let avatar = document.querySelectorAll("div[class='send-avatar']");
-            let box = document.querySelectorAll("div[class='send-content']");
-            let send = document.querySelectorAll("div[class='send']");
-            //动态设定send的高度
-            for(let i=0; i<send.length; i++){
-                send[i].style.height = avatar[i].offsetHeight + box[i].offsetHeight + "px";
-                console.log(avatar[i].offsetHeight);
-            }
-            // send.style.height = (avatar.offsetHeight + box.offsetHeight) + "px";
-        })
-    }
+    name: 'send',
+    data: function(){
+        return{
+            my: this.$store.state.currentUser,
+        }
+    },
+    props: {
+        content: {
+            type: String,
+            
+        }
+    },
 }
 </script>
 
@@ -53,20 +49,29 @@ export default {
     height: 100%;
 }
 .send .send-nickname{
-    position: absolute;
-    right: 58px;
+    width: 100%;
     height: 12px;
+    padding-right: 55px;
     line-height: 12px;
     font-size: 12px;
+    text-align: right;
     color: #acacac;
 }
-.send .send-box{
-    position: absolute;
-    top: 15px;
-    right: 56px;
+.send .send-box-wrap{
+    width: 100%;
+    padding-top: 3px;
+    text-align: right;
+    padding-right: 58px;
+}
+.send .send-box-wrap .send-box{
+    position: relative;
+    /* 根据文字长度，自适应宽度 */
+    width: fit-content;
     max-width: 262px;
     padding: 10px;
     border-radius: 5px;
+    text-align: left;
+    display: inline-block;
     background-color: #94ea6b;
 }
 .send .send-box-arrow{

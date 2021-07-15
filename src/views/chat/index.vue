@@ -1,20 +1,18 @@
 <template>
     <div class="container">
-        <Headerbar :useBack=true :title="'文件传输助手'" :useRightBtn=true :useRightMore=true></Headerbar>
-        <div class="chat-content">
-            <Send></Send>
-            <Receive></Receive>
-            <Send></Send>
-            <Receive></Receive>
+        <Headerbar :useBack=true :title="chat.friend.nickname" :useRightBtn=true :useRightMore=true></Headerbar>
+        <div v-for="(message, index) in chat.messageQueue" :key="index" class="chat-content">
+            <Send v-if="message.type == 'send'" :content="message.content"></Send>
+            <Receive v-if="message.type == 'receive'" :content="message.content" :friend="chat.friend"></Receive>
         </div>
         <div class="chat-tabbar">
             <div class="icon mui-icon mui-icon-mic"></div>
             <div class="input-message">
-                <input @input="onInput" type="text" class="mui-input-clear" v-model="input_message">
+                <input @input="onInput" @keyup.enter="sendMessage" type="text" class="mui-input-clear" v-model="input_message">
             </div>
             <div class="icon mui-icon iconfont icon-biaoqing"></div>
             <div v-if="!isInput" class="icon mui-icon mui-icon-plus"></div>
-            <button v-if="isInput" type="button" class="mui-btn mui-btn-success">发送</button>
+            <button v-if="isInput" @click="sendMessage" type="button" class="mui-btn mui-btn-success">发送</button>
         </div>
     </div>
 </template>
@@ -30,6 +28,7 @@ export default {
         return{
             isInput: false,
             input_message: '',
+            chat: this.$route.params.thisChat,
         }
     },
     methods: {
@@ -40,10 +39,32 @@ export default {
                 this.isInput = false;
             }
         },
+        sendMessage(){
+            let time = new Date();
+            let message = {
+                type: "send",
+                timeInfo: time.toTimeString(),
+                content: this.input_message,
+                index: this.chat.index,
+            };
+            this.$store.dispatch('addMessage', message);
+            this.input_message = ''; //清空输入框
+            this.isInput = false;
+            //发送信息后，自动滚到底部
+            this.$nextTick(() => {
+                let container = document.getElementsByClassName('container')[0] // 获取对象
+                document.documentElement.scrollTop = container.scrollHeight;
+            })
+        },
     },
     components: {
         Headerbar, Send, Receive
     },
+    mounted(){
+        // 开启聊天页面后，页面滚动到底部
+        let container = document.getElementsByClassName('container')[0] // 获取对象
+        document.documentElement.scrollTop = container.scrollHeight;
+    }
 }
 </script>
 

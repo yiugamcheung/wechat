@@ -1,34 +1,28 @@
 <template>
     <div class="receive">
         <div class="receive-avatar">
-            <img src="../images/user01.png" alt="">
+            <img :src="friend.avatar" alt="">
         </div>
-        <div class="receive-nickname">文件传输助手</div>
-        <div class="receive-box">
+        <div class="receive-nickname">{{friend.nickname}}</div>
+        <div class="receive-box-wrap">
+            <div class="receive-box">
             <div class="receive-box-arrow"></div>
-            <div class="receive-content">
-                一方面，美国基础设施已严重老化，其破旧不堪不仅威胁民众生
-                命财产安全，也成为制约经济发展的梗阻；另一方面，在美国政
-                治极化加剧、财政赤字高企背景下，政府重振基础设施的努力面
-                临巨大挑战。
-            </div>   
+            <div class="receive-content">{{content}}</div>   
+        </div>
         </div>
     </div>
 </template>
 
 <script>
 export default {
-    mounted () {
-        this.$nextTick(() => {
-            let avatar = document.querySelectorAll("div[class='receive-avatar']");
-            let box = document.querySelectorAll("div[class='receive-content']");
-            let receive = document.querySelectorAll("div[class='receive']");
-            //动态设定receive的高度
-            for(let i=0; i<receive.length; i++){
-                receive[i].style.height = avatar[i].offsetHeight + box[i].offsetHeight + "px";
-                console.log(avatar[i].offsetHeight);
-            }
-        })
+    name: 'receive',
+    props: {
+        content: {
+            type: String,
+        },
+        friend: {
+            type: Object,
+        }
     }
 }
 </script>
@@ -52,17 +46,23 @@ export default {
     height: 100%;
 }
 .receive .receive-nickname{
-    position: absolute;
-    left: 58px;
+    width: 100%;
     height: 12px;
+    padding-left: 55px;
     line-height: 12px;
     font-size: 12px;
+    text-align: left;
     color: #acacac;
 }
-.receive .receive-box{
-    position: absolute;
-    top: 15px;
-    left: 56px;
+.receive .receive-box-wrap{
+    width: 100%;
+    padding-top: 3px;
+    padding-left: 57px;
+}
+.receive .receive-box-wrap .receive-box{
+    position: relative;
+    /* 根据文字长度，自适应宽度 */
+    width: fit-content;
     max-width: 262px;
     padding: 10px;
     border-radius: 5px;

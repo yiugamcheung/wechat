@@ -69,11 +69,7 @@ export default {
     },
     data: function(){
         return{
-            my: {
-                avatar: this.$store.state.currentUser.avatar,
-                nickname: this.$store.state.currentUser.nickname,
-                number: this.$store.state.currentUser.number
-            }
+            my: this.$store.state.currentUser,
         }
     }
 }

@@ -2,22 +2,7 @@
     <div class="container">
         <Headerbar title="微信" :useSearch=true :useRightBtn=true :useRightAdd=true></Headerbar>
         <div class="message-list">
-            <router-link to="/chat">
-                <Message></Message>
-            </router-link>
-            <Message></Message>
-            <Message></Message>
-            <Message></Message>
-            <Message></Message>
-            <Message></Message>
-            <Message></Message>
-            <Message></Message>
-            <Message></Message>
-            <Message></Message>
-            <Message></Message>
-            <Message></Message>
-            <Message></Message>
-            <Message></Message>
+            <Message v-for="(chat,index) in chatList" :key="index" :chat="chat"></Message>
         </div>
         <Tabbar currentKey="index"></Tabbar>
     </div>
@@ -29,6 +14,11 @@ import Tabbar from '@/components/tabbar'
 import Message from '@/views/index/message'
 export default {
     name: "index",
+    data: function(){
+        return{
+            chatList: this.$store.state.chat,
+        }
+    },
     components: {
         Tabbar, Headerbar, Message
     }

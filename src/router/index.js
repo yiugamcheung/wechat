@@ -21,10 +21,10 @@ const routes = [
     path: '/my',
     component: () => import(/* webpackChunkName: "message" */ '../views/my')
   },
-  {
-    path: '/chat',
-    component: () => import(/* webpackChunkName: "message" */ '../views/chat')
-  },
+  // {
+  //   path: '/chat',
+  //   component: () => import(/* webpackChunkName: "message" */ '../views/chat')
+  // },
   {
     path: '/search',
     component: () => import(/* webpackChunkName: "message" */ '../views/search')
@@ -33,6 +33,11 @@ const routes = [
     path: '/pengyouquan',
     component: () => import(/* webpackChunkName: "message" */ '../views/pengyouquan')
   },
+  {
+    name: 'chat',
+    path: '/chat/:thisChat',
+    component: () => import(/* webpackChunkName: "message" */ '../views/chat')
+  }
   
 ]
 
