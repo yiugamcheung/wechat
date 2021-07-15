@@ -2,10 +2,10 @@
     <div class="container">
         <div class="my-header">
             <div class="my-header-avatar">
-                <img src="./images/user01.png" alt="">
+                <img :src="my.avatar" alt="">
             </div>
-            <div class="my-nickname">yiugamcheung</div>
-            <div class="my-number">微信号：Cinta_Dennis</div>
+            <div class="my-nickname">{{my.nickname}}</div>
+            <div class="my-number">微信号：{{my.number}}</div>
             <div class="my-btn-list">
                 <div class="my-btn">+ 状态</div>
                 <div class="my-btn my-btn-more">...</div>
@@ -66,6 +66,15 @@ import Tabbar from '@/components/tabbar'
 export default {
     components: {
         Tabbar
+    },
+    data: function(){
+        return{
+            my: {
+                avatar: this.$store.state.currentUser.avatar,
+                nickname: this.$store.state.currentUser.nickname,
+                number: this.$store.state.currentUser.number
+            }
+        }
     }
 }
 </script>

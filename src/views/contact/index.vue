@@ -29,142 +29,14 @@
 import Tabbar from '@/components/tabbar'
 import Headerbar from '@/components/headerbar'
 import pinyin from '../../../node_modules/js-pinyin/index'
-import avatar01 from './images/user01.png'
+// import avatar01 from './images/user01.png'
 export default {
     components: {
         Tabbar, Headerbar
     },
     data: function(){
         return{ 
-            contacts: [
-                {
-                    nickname: '张三',
-                    index: '',
-                    avatar: avatar01,
-                },
-                {
-                    nickname: '李四',
-                    index: '',
-                    avatar: avatar01,
-                },
-                {
-                    nickname: '王五',
-                    index: '',
-                    avatar: avatar01,
-                },
-                {
-                    nickname: '侯六',
-                    index: '',
-                    avatar: avatar01,
-                },
-                {
-                    nickname: '王宝强',
-                    index: '',
-                    avatar: avatar01,
-                },
-                {
-                    nickname: '马化腾',
-                    index: '',
-                    avatar: avatar01,
-                },
-                {
-                    nickname: '张小龙',
-                    index: '',
-                    avatar: avatar01,
-                },
-                {
-                    nickname: '于又珊',
-                    index: '',
-                    avatar: avatar01,
-                },
-                {
-                    nickname: '朱采萍',
-                    index: '',
-                    avatar: avatar01,
-                },
-                {
-                    nickname: '杨若溪',
-                    index: '',
-                    avatar: avatar01,
-                },
-                {
-                    nickname: '杨绮露',
-                    index: '',
-                    avatar: avatar01,
-                },
-                {
-                    nickname: '陈书容',
-                    index: '',
-                    avatar: avatar01,
-                },
-                {
-                    nickname: '齐巧云',
-                    index: '',
-                    avatar: avatar01,
-                },
-                {
-                    nickname: '辛哲城',
-                    index: '',
-                    avatar: avatar01,
-                },
-                {
-                    nickname: '金容风',
-                    index: '',
-                    avatar: avatar01,
-                },
-                {
-                    nickname: '刘强东',
-                    index: '',
-                    avatar: avatar01,
-                },
-                {
-                    nickname: '李文宏',
-                    index: '',
-                    avatar: avatar01,
-                },
-                {
-                    nickname: '朱亚文',
-                    index: '',
-                    avatar: avatar01,
-                },
-                {
-                    nickname: '安若山',
-                    index: '',
-                    avatar: avatar01,
-                },
-                {
-                    nickname: '董明珠',
-                    index: '',
-                    avatar: avatar01,
-                },
-                {
-                    nickname: '彭于晏',
-                    index: '',
-                    avatar: avatar01,
-                },
-                {
-                    nickname: '李莫愁',
-                    index: '',
-                    avatar: avatar01,
-                },
-                {
-                    nickname: '东方不败',
-                    index: '',
-                    avatar: avatar01,
-                },
-                {
-                    nickname: '恩智浦',
-                    index: '',
-                    avatar: avatar01,
-                },
-                {
-                    nickname: '饿了么',
-                    index: '',
-                    avatar: avatar01,
-                },
-                
-
-            ],
+            contacts: this.$store.state.friends,
             contacts_list: [
                 {
                     index: 'A',
@@ -311,7 +183,7 @@ export default {
                     this.contacts_list[j].contacts.push(this.contacts[i]);
                 }
             }
-        }   
+        }
     }
 
 }
