@@ -38,10 +38,20 @@ export default {
     bottom: 0;
     width: 100%;
     height: 50px;
-    border-top: 1px solid #e7e7e7;
+    /* border-top: 1px solid #e7e7e7; */
     display: flex;
     background-color: #f7f7f7;
     z-index: 10;
+}
+.bottom-bar::before{
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 1px;
+    content: '';
+    transform: scaleY(.5);
+    background-color: #e0e0e0;
 }
 .tab-item{
     flex: 1;

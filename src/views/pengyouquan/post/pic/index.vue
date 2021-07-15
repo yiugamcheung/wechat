@@ -3,10 +3,10 @@
     <div class="pic">
         <!-- 传入多张图片时 -->
         <div v-if="pics.length > 1" class="pic-list">
-            <img v-for="pic in pics" :key="pic.message" :src="pic.url" class="post-img" alt="">
+            <img v-for="pic in pics" :key="pic.message" preview="1" :src="pic.url" class="post-img" alt="">
         </div>
         <!-- 传入单张图片时 -->
-        <img v-if="pics && pics.length == 1" :src="pics[0].url" class="single-pic" :style="singlePicStyle">
+        <img v-if="pics && pics.length == 1" :src="pics[0].url" class="single-pic" :style="singlePicStyle" preview="1">
     </div>
 </template>
 

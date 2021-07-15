@@ -18,7 +18,17 @@
         <!-- 朋友圈详情信息 -->
         <div class="post-info">
             <span class="post-time-info">29分钟前</span>
-            <div class="post-moreBtn">..</div>
+            <div class="post-moreBtn" @click="showMore==false? showMore=true : showMore=false">..</div>
+            <div v-if="showMore" class="post-popover">
+                <div class="post-btn">
+                    <span class="mui-icon-extra mui-icon-extra-heart"></span>
+                    赞
+                </div>
+                <div class="post-btn">
+                    <span class="mui-icon mui-icon-chatboxes"></span>
+                    评论
+                </div>
+            </div>
         </div>
         <!-- 状态组件 -->
         <div class="post-state">
@@ -61,6 +71,7 @@ export default {
     name: 'post',
     data: function(){
         return{
+            showMore: false,
             imgs: [
                 {
                     url: pic01,
@@ -131,6 +142,14 @@ export default {
     },
     components: {
         Pic
+    },
+    watch: {
+        showMore: function(){
+            document.addEventListener('click', (e) => {
+              if (!this.$el.contains(e.target)) 
+               this.showMore = false;
+            })
+        }
     }
 }
 </script>
@@ -156,6 +175,7 @@ export default {
     height: 100%;
 }
 .post-nickname{
+    font-weight: 600;
     color: #576f91;
     margin-bottom: 5px;
 }
@@ -186,6 +206,27 @@ export default {
     color: #576f91;
     background-color: #efefef;
 }
+.post-info .post-popover{
+    position: absolute;
+    top: -6px;
+    right: 50px;
+    width: 160px;
+    height: 35px;
+    border-radius: 5px;
+    display: flex;
+    background-color: #4c4c4a;
+}
+.post-info .post-popover .post-btn{
+    flex: 1;
+    font-size: 14px;
+    text-align: center;
+    line-height: 35px;
+    color: #fff;
+}
+.post-info .post-popover .post-btn span{
+    font-size: 17px;
+    font-weight: 600;
+}
 .post-state{
     width: 100%;
     margin-top: 6px;
@@ -195,19 +236,29 @@ export default {
     background-color: #f7f6fb;
 }
 .post-state .liked-list{
-    padding: 5px 5px 0 5px;
+    font-weight: 600;
+    padding: 5px 8px 0 8px;
     border-bottom: 1px solid #e8e8e8;
+}
+.post-state .comment-list{
+    width: 100%;
+    padding: 5px 8px;
 }
 .post-state .liked-list > span{
     margin-right: 5px;
     font-size: 15px;
     font-weight: 600;
 }
+.comment-list .comment-item{
+    margin-bottom: 3px;
+}
+.comment-list .comment-item:last-child{
+    margin-bottom: 0;
+}
+.comment-list .comment-item .comment-nickname{
+    font-weight: 600;
+}
 .comment-list .comment-item .comment-content{
     color: #000;
-}
-.post-state .comment-list{
-    width: 100%;
-    padding: 5px 5px 5px 5px;
 }
 </style>

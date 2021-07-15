@@ -80,6 +80,7 @@ export default {
 
     },
     watch: {
+        // 点击其他位置，弹出菜单自动隐藏
         clickAdd: function(){
             document.addEventListener('click', (e) => {
               if (!this.$el.contains(e.target)) 
@@ -100,7 +101,7 @@ export default {
     left: 0;
     width: 100%;
     height: 45px;
-    background-color: #eee;
+    background-color: #ededed;
     z-index:999;
 }
 .mui-icon-left-nav{

@@ -49,7 +49,7 @@ export default {
 
 <style scoped>
 .container{
-    padding: 50px 0  50px 0;
+    padding: 55px 0  50px 0;
 }
 .container .chat-content{
     width: 100%;
