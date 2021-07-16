@@ -54,10 +54,20 @@ export default {
     width: 46px;
     height: 46px;
 }
+.message-wrap+.message-wrap .messgae-right::after{
+    position: absolute;
+    top: 0;
+    right: 0;
+    content: '';
+    display: block;
+    width: 100%;
+    height: 1px;
+    transform: scaleY(.5);
+    background-color: #dfdfdf;
+}
 .messgae-right{
     position: relative;
     flex: 1;
-    border-bottom: 1px solid #dedede;
 }
 .nickname{
     position: absolute;

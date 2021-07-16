@@ -1,26 +1,23 @@
 <template>
     <!-- 单条朋友圈组件开发 -->
     <div class="post">
-        <div class="post-avatar">
-            <img src="../images/user01.png" alt="">
+        <div @click="goFriend(pyq.user.number)" class="post-avatar">
+            <img :src="pyq.user.avatar" alt="">
         </div>
-        <div class="post-nickname">文件传输助手</div>
+        <div @click="goFriend(pyq.user.number)" class="post-nickname">{{pyq.user.nickname}}</div>
         <!-- 文本内容 -->
-        <div class="post-text">
-            总书记的这篇重要讲话贯穿辩证唯物主义和历史唯物主义的世界观方
-            法论，提出了一系列新的重大思想、重大观点、重大论断，是激励全
-            党全国各族人民向第二个百年奋斗目标进军的政治宣言和行动纲领。
-        </div>
+        <div class="post-text">{{pyq.text}}</div>
         <!-- 多媒体内容 -->
         <div class="post-media">
-            <Pic :pics="imgs"></Pic>
+            <Pic :pics="pyq.media.imgs"></Pic>
         </div>
         <!-- 朋友圈详情信息 -->
         <div class="post-info">
-            <span class="post-time-info">29分钟前</span>
+            <span class="post-time-info">{{pyq.info.timeInfo}}</span>
+            <!-- 弹出按钮菜单 -->
             <div class="post-moreBtn" @click="showMore==false? showMore=true : showMore=false">..</div>
             <div v-if="showMore" class="post-popover">
-                <div class="post-btn">
+                <div class="post-btn" @click="onLike">
                     <span class="mui-icon-extra mui-icon-extra-heart"></span>
                     赞
                 </div>
@@ -33,20 +30,15 @@
         <!-- 状态组件 -->
         <div class="post-state">
             <!-- 点赞列表 -->
-            <div class="liked-list"><span class="mui-icon-extra mui-icon-extra-heart"></span>张三,李四,王五</div>
+            <div class="liked-list">
+                <span class="mui-icon-extra mui-icon-extra-heart"></span>
+                <span v-for="(liked,index) in pyq.state.likedList" :key="index" @click="goFriend(liked.number)" class="liked-item">{{liked.nickname}}</span>
+            </div>
             <!-- 评论列表 -->
             <div class="comment-list">
-                <div class="comment-item">
-                    <span class="comment-nickname">张三</span>
-                    <span class="comment-content">：向百年奋斗目标进军！！！</span>
-                </div>
-                <div class="comment-item">
-                    <span class="comment-nickname">李四</span>
-                    <span class="comment-content">：向百年奋斗目标进军！！！</span>
-                </div>
-                <div class="comment-item">
-                    <span class="comment-nickname">王五</span>
-                    <span class="comment-content">：向百年奋斗目标进军！！！</span>
+                <div v-for="(comment,i) in pyq.state.commentList" :key="i" class="comment-item">
+                    <span class="comment-nickname" @click="goFriend(comment.number)">{{comment.nickname}}</span>
+                    <span class="comment-content">：{{comment.content}}</span>
                 </div>
             </div>
         </div>
@@ -55,93 +47,48 @@
 
 <script>
 import Pic from '@/views/pengyouquan/post/pic'
-import pic01 from '@/views/pengyouquan/images/pic01.jpg'
-import pic02 from '@/views/pengyouquan/images/pic02.jpg'
-import pic03 from '@/views/pengyouquan/images/pic02.jpg'
-import pic04 from '@/views/pengyouquan/images/pic02.jpg'
-import pic05 from '@/views/pengyouquan/images/pic02.jpg'
-import pic06 from '@/views/pengyouquan/images/pic02.jpg'
-import pic07 from '@/views/pengyouquan/images/pic02.jpg'
-import pic08 from '@/views/pengyouquan/images/pic02.jpg'
-import pic09 from '@/views/pengyouquan/images/pic02.jpg'
-
-
 
 export default {
     name: 'post',
     data: function(){
         return{
             showMore: false,
-            imgs: [
-                {
-                    url: pic01,
-                    Info: {
-                        width: 0,
-                        height: 0,
-                    }
-                },
-                {
-                    url: pic02,
-                    Info: {
-                        width: 0,
-                        height: 0,
-                    }
-                },
-                {
-                    url: pic03,
-                    Info: {
-                        width: 0,
-                        height: 0,
-                    }
-                },
-                {
-                    url: pic04,
-                    Info: {
-                        width: 0,
-                        height: 0,
-                    }
-                },
-                {
-                    url: pic05,
-                    Info: {
-                        width: 0,
-                        height: 0,
-                    }
-                },
-                {
-                    url: pic06,
-                    Info: {
-                        width: 0,
-                        height: 0,
-                    }
-                },
-                {
-                    url: pic07,
-                    Info: {
-                        width: 0,
-                        height: 0,
-                    }
-                },
-                {
-                    url: pic08,
-                    Info: {
-                        width: 0,
-                        height: 0,
-                    }
-                },
-                {
-                    url: pic09,
-                    Info: {
-                        width: 0,
-                        height: 0,
-                    }
-                }
-                
-            ],
+            isLiked: false,
         }
     },
     components: {
         Pic
+    },
+    props: {
+        pyq: {
+            type: Object,
+        }
+    },
+    methods: {
+        onLike(){
+            let liked = {
+                    nickname: this.$store.state.currentUser.nickname,
+                    number: this.$store.state.currentUser.number,
+                    index: this.pyq.index,
+            }
+
+            if(!this.pyq.state.isLiked){                
+                this.$store.dispatch('addLiked', liked);
+                this.showMore = false;
+            }else{
+                this.$store.dispatch('rmLiked', liked);
+                this.showMore = false;
+            }
+            
+        },
+        goFriend(number){
+            this.$router.push({
+                name: 'friend',
+                params: {
+                    number: number,
+                }
+            })
+        }
     },
     watch: {
         showMore: function(){
@@ -240,14 +187,20 @@ export default {
     padding: 5px 8px 0 8px;
     border-bottom: 1px solid #e8e8e8;
 }
+.post-state .liked-list .liked-item + .liked-item::before{
+    content: ',';
+    margin-right: 5px;
+}
 .post-state .comment-list{
     width: 100%;
     padding: 5px 8px;
 }
 .post-state .liked-list > span{
-    margin-right: 5px;
     font-size: 15px;
     font-weight: 600;
+}
+.post-state .liked-list .mui-icon-extra{
+    margin-right: 5px;
 }
 .comment-list .comment-item{
     margin-bottom: 3px;

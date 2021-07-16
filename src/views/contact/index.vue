@@ -6,7 +6,7 @@
             <!-- 索引首字母栏 -->
             <header v-if="list.show" :id="list.index">{{list.index}}</header>
             <!-- 单个联系人 -->
-            <div v-for="(item,index) in list.contacts" :key="index" class="contacts-item">
+            <div v-for="(item,index) in list.contacts" :key="index" @click="goFriend(item.number)" class="contacts-item">
                 <div class="contacts-item-left">
                     <div class="contacts-item-left">
                         <div class="contacts-item-avatar">
@@ -168,14 +168,42 @@ export default {
                     contacts: [],
                     show: false,
                 },
+                {
+                    index: '#',
+                    contacts: [],
+                    show: false,
+                },
             ]
+        }
+    },
+    methods: {
+        goFriend(number){
+            this.$router.push({
+                name: 'friend',
+                params: {
+                    number: number,
+                }
+            })
         }
     },
     mounted(){
         //根据nickname，生成首字母index
         for(let i=0; i<this.contacts.length; i++){
-            let char = pinyin.getCamelChars(this.contacts[i].nickname);
-            this.contacts[i].index = char.charAt(0);
+            // let char = pinyin.getCamelChars(this.contacts[i].nickname);
+            let firstChar = this.contacts[i].nickname.charAt(0);
+            console.log("init" + firstChar);
+            let eng = new RegExp("[A-Za-z]+");
+            let chi = new RegExp("[\u4E00-\u9FA5]+");
+            // 判断nickname首字符类型（汉字，字母，符号）
+            if(eng.test(firstChar)){
+                firstChar = firstChar.toUpperCase(); //若为字母，则将其首字符转换成大写字母
+            }else if(chi.test(firstChar)){
+                firstChar = pinyin.getCamelChars(firstChar); //若为汉字，则将其转换为大写字母
+            }else{
+                firstChar = '#'
+            }
+            console.log(firstChar);
+            this.contacts[i].index = firstChar;
             //将联系人放入相应的分组
             for(let j=0; j<this.contacts_list.length; j++){
                 if(this.contacts_list[j].index == this.contacts[i].index){

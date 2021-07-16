@@ -74,7 +74,7 @@ export default {
     left: -10px;
     width: 0;
     height: 0;
-    border: 5px solid;
+    border: 6px solid;
     border-color: transparent #fff transparent transparent;
 }
 </style>

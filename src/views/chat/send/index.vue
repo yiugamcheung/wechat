@@ -80,7 +80,7 @@ export default {
     right: -10px;
     width: 0;
     height: 0;
-    border: 5px solid;
+    border: 6px solid;
     border-color: transparent transparent transparent #94ea6b;
 }
 </style>
