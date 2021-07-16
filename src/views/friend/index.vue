@@ -18,7 +18,7 @@
             <div class="friend-list mui-navigate-right mui-push-right">更多信息</div>
         </div>
         <div class="friend-bottom">
-            <div class="friend-btn">
+            <div class="friend-btn" @click="goChat">
                 <span class="mui-icon mui-icon-chatbubble"></span>发消息
             </div>
             <div class="friend-btn">
@@ -41,6 +41,49 @@ export default {
     },
     components: {
         Headerbar
+    },
+    methods: {
+        goChat(){
+            let chatList = this.$store.state.chat;
+            for(let i=0; i<chatList.length; i++){
+                if(chatList[i].friend.number == this.friend.number){
+                    this.$router.push({
+                        name: 'chat',
+                        params: {
+                        chatNumber: this.friend.number,
+                        }       
+                    })
+                    return;
+                }else{
+                    if(i == chatList.length-1){
+                        let newChat = {
+                            index: chatList.length,
+                            friend: {
+                                avatar: this.friend.avatar,
+                                nickname: this.friend.nickname,
+                                number: this.friend.number,
+                            },
+                            messageQueue: [
+                                {
+                                    type: 'receive',
+                                    timeInfo: Date(),
+                                    content: "开始聊天"
+                                }        
+                            ],  
+                        }
+                        this.$store.dispatch('addChat', newChat);
+
+                        this.$router.push({
+                        name: 'chat',
+                        params: {
+                        chatNumber: this.friend.number,
+                        }       
+                        })
+                        return;
+                    }
+                }
+            }
+        }
     },
     mounted(){
         // 根据传入的numebr查询对应的friend

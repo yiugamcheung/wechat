@@ -3,7 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import preview from 'vue-photo-preview'
-
+import moment from '_moment@2.29.1@moment'
 // import mui from '../static/mui/js/mui.js'
 import '../static/mui/css/mui.css'
 import '../static/mui/css/mui-icons-extra.css'
@@ -11,7 +11,7 @@ import '../static/mui/css/iconfont.css'
 import '../static/normalize.css'
 import 'vue-photo-preview/dist/skin.css'
 
-
+moment.locale('zh-cn');
 var option = {
   maxSpreadZoom: 1, // 控制预览图最大的倍数，默认是2倍
   fullscreenEl: false, //控制是否显示右上角全屏按钮

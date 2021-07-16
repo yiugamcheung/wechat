@@ -4,7 +4,9 @@ import Vuex from 'vuex'
 import myAvatar from '@/assets/images/myAvatar.jpg'
 import user01 from  '@/assets/images/user01.png'
 import pic01 from '@/assets/images/pic01.jpg'
+import moment from '../../node_modules/moment/moment'
 
+moment.locale('zh-cn');
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -177,7 +179,8 @@ export default new Vuex.Store({
         index: 0,
         friend: {
           avatar: user01,
-          nickname: '文件传输助手'
+          nickname: '马化腾',
+          number: 'mahuateng'
         },
         messageQueue: [
           {
@@ -197,7 +200,7 @@ export default new Vuex.Store({
           },
           {
             type: 'send',
-            timeInfo: '2021-07-15 16:39',
+            timeInfo: moment().subtract(10, 'days'),
             content: "一方面，美国基础设施已严重老化，其破旧不堪不仅威胁民众生命财产安全，也成为制约经济发展的梗阻；另一方面，在美国政治极化加剧、财政赤字高企背景下，政府重振基础设施的努力面临巨大挑战。"
           },
         ]
@@ -206,7 +209,8 @@ export default new Vuex.Store({
         index: 1,
         friend: {
           avatar: user01,
-          nickname: '脉动'
+          nickname: '张小龙',
+          number: 'zhangxiaolong'
         },
         messageQueue: [
           {
@@ -216,7 +220,7 @@ export default new Vuex.Store({
           },
           {
             type: 'send',
-            timeInfo: '2021-07-15 20:58',
+            timeInfo: moment().subtract(1, 'days'),
             content: "随时脉动回来！！"
           },
         ]
@@ -358,7 +362,13 @@ export default new Vuex.Store({
     rmLiked(state, liked){
       state.pyqList[liked.index].state.likedList.pop();
       state.pyqList[liked.index].state.isLiked = false;
-    }
+    },
+    addChat(state, chat){
+      state.chat.push(chat);
+    },
+    addComment(state, comment){
+      state.pyqList[comment.index].state.commentList.push(comment);
+    },
   },
   actions: {
     addMessage(context, message){
@@ -371,6 +381,13 @@ export default new Vuex.Store({
     //取消点赞
     rmLiked(context, liked){
       context.commit('rmLiked', liked);
+    },
+    //创建聊天
+    addChat(context, chat){
+      context.commit('addChat', chat);
+    },
+    addComment(context, comment){
+      context.commit('addComment', comment);
     }
   },
   modules: {

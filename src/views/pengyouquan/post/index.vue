@@ -21,7 +21,7 @@
                     <span class="mui-icon-extra mui-icon-extra-heart"></span>
                     赞
                 </div>
-                <div class="post-btn">
+                <div class="post-btn" @click="onComment('回复')">
                     <span class="mui-icon mui-icon-chatboxes"></span>
                     评论
                 </div>
@@ -38,15 +38,18 @@
             <div class="comment-list">
                 <div v-for="(comment,i) in pyq.state.commentList" :key="i" class="comment-item">
                     <span class="comment-nickname" @click="goFriend(comment.number)">{{comment.nickname}}</span>
-                    <span class="comment-content">：{{comment.content}}</span>
+                    <span class="comment-content" @click="onComment('回复' + comment.nickname)">：{{comment.content}}</span>
                 </div>
             </div>
         </div>
+        <!-- 评论输入栏 -->
+        <Comment @isComment="showComment=false" :showComment="showComment" :placeHolder="placeHolder" :index="pyq.index"></Comment>
     </div>
 </template>
 
 <script>
 import Pic from '@/views/pengyouquan/post/pic'
+import Comment from '@/views/pengyouquan/comment'
 
 export default {
     name: 'post',
@@ -54,10 +57,12 @@ export default {
         return{
             showMore: false,
             isLiked: false,
+            showComment: false,
+            placeHolder: '',
         }
     },
     components: {
-        Pic
+        Pic, Comment
     },
     props: {
         pyq: {
@@ -80,6 +85,15 @@ export default {
                 this.showMore = false;
             }
             
+        },
+        onComment(hold){
+            this.showMore = false;
+            this.placeHolder = hold + '：';
+            if(!this.showComment){
+                this.showComment = true;
+            }else{
+                this.showComment = false
+            }
         },
         goFriend(number){
             this.$router.push({

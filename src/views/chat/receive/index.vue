@@ -1,9 +1,9 @@
 <template>
     <div class="receive">
-        <div class="receive-avatar">
+        <div class="receive-avatar" @click="goFriend(friend.number)">
             <img :src="friend.avatar" alt="">
         </div>
-        <div class="receive-nickname">{{friend.nickname}}</div>
+        <div class="receive-nickname" @click="goFriend(friend.number)">{{friend.nickname}}</div>
         <div class="receive-box-wrap">
             <div class="receive-box">
             <div class="receive-box-arrow"></div>
@@ -22,6 +22,16 @@ export default {
         },
         friend: {
             type: Object,
+        }
+    },
+    methods: {
+        goFriend(number){
+            this.$router.push({
+                name: 'friend',
+                params: {
+                    number: number,
+                }
+            })
         }
     }
 }

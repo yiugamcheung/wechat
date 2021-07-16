@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <Headerbar :useBack=true :title="chat.friend.nickname" :useRightBtn=true :useRightMore=true></Headerbar>
+        <Headerbar :useBack="true" :title="chat.friend.nickname" :useRightBtn="true" :useRightMore="true"></Headerbar>
         <div v-for="(message, index) in chat.messageQueue" :key="index" class="chat-content">
             <Send v-if="message.type == 'send'" :content="message.content"></Send>
             <Receive v-if="message.type == 'receive'" :content="message.content" :friend="chat.friend"></Receive>
@@ -21,14 +21,16 @@
 import Headerbar from '@/components/headerbar'
 import Send from '@/views/chat/send'
 import Receive from '@/views/chat/receive'
+import moment from '../../../node_modules/moment/moment'
 
 export default {
-    name: "char",
+    name: "chat",
     data: function(){
         return{
             isInput: false,
             input_message: '',
-            chat: this.$route.params.thisChat,
+            chatNumber: this.$route.params.chatNumber,
+            chat: {},
         }
     },
     methods: {
@@ -40,10 +42,10 @@ export default {
             }
         },
         sendMessage(){
-            let time = new Date();
+            let time = moment();
             let message = {
                 type: "send",
-                timeInfo: time.toTimeString(),
+                timeInfo: time,
                 content: this.input_message,
                 index: this.chat.index,
             };
@@ -62,8 +64,18 @@ export default {
     },
     mounted(){
         // 开启聊天页面后，页面滚动到底部
-        let container = document.getElementsByClassName('container')[0] // 获取对象
-        document.documentElement.scrollTop = container.scrollHeight;
+        this.$nextTick(() => {
+            let container = document.getElementsByClassName('container')[0] // 获取对象
+            document.documentElement.scrollTop = container.scrollHeight;
+        })
+    },
+    created(){
+        let chatList = this.$store.state.chat;
+        for(let i=0; i<chatList.length; i++){
+            if(chatList[i].friend.number == this.chatNumber){
+                this.chat = chatList[i];
+            }
+        }
     }
 }
 </script>

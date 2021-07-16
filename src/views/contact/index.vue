@@ -191,7 +191,6 @@ export default {
         for(let i=0; i<this.contacts.length; i++){
             // let char = pinyin.getCamelChars(this.contacts[i].nickname);
             let firstChar = this.contacts[i].nickname.charAt(0);
-            console.log("init" + firstChar);
             let eng = new RegExp("[A-Za-z]+");
             let chi = new RegExp("[\u4E00-\u9FA5]+");
             // 判断nickname首字符类型（汉字，字母，符号）
@@ -202,7 +201,6 @@ export default {
             }else{
                 firstChar = '#'
             }
-            console.log(firstChar);
             this.contacts[i].index = firstChar;
             //将联系人放入相应的分组
             for(let j=0; j<this.contacts_list.length; j++){

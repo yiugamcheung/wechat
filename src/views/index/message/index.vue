@@ -6,13 +6,12 @@
         <div class="messgae-right">
             <div class="nickname">{{chat.friend.nickname}}</div>
             <div class="content">{{chat.messageQueue[chat.messageQueue.length-1].content}}</div>
-            <div class="time-info">{{chat.messageQueue[chat.messageQueue.length-1].timeInfo}}</div>
+            <div class="time-info">{{chat.messageQueue[chat.messageQueue.length-1].timeInfo.calendar()}}</div>
         </div>
     </div>
 </template>
 
 <script>
-
 export default {
     name: 'message',
     props: {
@@ -25,7 +24,7 @@ export default {
             this.$router.push({
                 name: 'chat',
                 params: {
-                    thisChat: this.chat,
+                    chatNumber: this.chat.friend.number,
                 }
             })
         }

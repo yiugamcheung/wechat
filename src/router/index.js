@@ -35,7 +35,7 @@ const routes = [
   },
   {
     name: 'chat',
-    path: '/chat/:thisChat',
+    path: '/chat/:chatNumber',
     component: () => import(/* webpackChunkName: "message" */ '../views/chat')
   },
   {

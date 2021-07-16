@@ -12,6 +12,7 @@
 import Headerbar from '@/components/headerbar'
 import Tabbar from '@/components/tabbar'
 import Message from '@/views/index/message'
+
 export default {
     name: "index",
     data: function(){
@@ -21,7 +22,7 @@ export default {
     },
     components: {
         Tabbar, Headerbar, Message
-    }
+    },
 }
 </script>
 
