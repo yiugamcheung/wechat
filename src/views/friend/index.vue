@@ -67,7 +67,7 @@ export default {
                                 {
                                     type: 'receive',
                                     timeInfo: Date(),
-                                    content: "开始聊天"
+                                    content: "你好！我是" + this.friend.nickname,
                                 }        
                             ],  
                         }

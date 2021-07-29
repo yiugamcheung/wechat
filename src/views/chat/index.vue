@@ -116,4 +116,7 @@ export default {
     text-align: center;
     line-height: 50px;
 }
+.chat-tabbar .input-message .mui-input-clear{
+    border: 0;
+}
 </style>

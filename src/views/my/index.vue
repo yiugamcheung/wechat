@@ -153,6 +153,26 @@ export default {
     top: 14px;
     font-size: 22px;
 }
+.my-list .mui-navigate-right .icon-weixinzhifu{
+    color: #17ad63;
+}
+.my-list .mui-navigate-right .icon-shoucang{
+    color: #d57882;
+}
+.my-list .mui-navigate-right .icon-xiangce{
+    color: #3b7abd;
+}
+/* 2e85ba */
+.my-list .mui-navigate-right .icon-kabao{
+    color: #38b78c;
+}
+.my-list .mui-navigate-right .icon-biaoqing{
+    color: #f6a160;
+}
+.my-list .mui-navigate-right .icon-shezhi{
+    color: #2e85ba;
+}
+
 .mui-table-view-cell.my-item + .mui-table-view-cell.my-item::before{
     position: absolute;
     top: 0;
